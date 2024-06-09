@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scommesse Elezioni Comunali</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Previsioni Elezioni Comunali</h1>
+    <form id="predictionsForm">
+        <fieldset>
+            <legend>Inserisci le tue previsioni:</legend>
+            <label for="darioAngeli">Dario Angeli:</label>
+            <input type="number" id="darioAngeli" name="darioAngeli" required><br>
+
+            <label for="passon">Passon:</label>
+            <input type="number" id="passon" name="passon" required><br>
+
+            <label for="duri">Durì:</label>
+            <input type="number" id="duri" name="duri" required><br>
+
+            <label for="beltrame">Beltrame:</label>
+            <input type="number" id="beltrame" name="beltrame" required><br>
+
+            <label for="alex">Alex:</label>
+            <input type="number" id="alex" name="alex" required><br>
+
+            <label for="abramo">Abramo:</label>
+            <input type="number" id="abramo" name="abramo" required><br>
+
+            <label for="blasigh">Blasigh:</label>
+            <input type="number" id="blasigh" name="blasigh" required><br>
+
+            <label for="peressutti">Peressutti:</label>
+            <input type="number" id="peressutti" name="peressutti" required><br>
+
+            <label for="noacco">Noacco:</label>
+            <input type="number" id="noacco" name="noacco" required><br>
+
+            <label for="sanna">Sanna:</label>
+            <input type="number" id="sanna" name="sanna" required><br>
+
+            <label for="incandela">Incandela:</label>
+            <input type="number" id="incandela" name="incandela" required><br>
+
+            <label for="scarpa">Scarpa:</label>
+            <input type="number" id="scarpa" name="scarpa" required><br>
+
+            <label for="orsettig">Orsettig:</label>
+            <input type="number" id="orsettig" name="orsettig" required><br>
+
+            <label for="nadalutti">Nadalutti:</label>
+            <input type="number" id="nadalutti" name="nadalutti" required><br>
+
+            <label for="milanese">Milanese:</label>
+            <input type="number" id="milanese" name="milanese" required><br>
+
+            <label for="vicario">Vicario:</label>
+            <input type="number" id="vicario" name="vicario" required><br>
+        </fieldset>
+
+        <input type="submit" value="Invia Previsioni">
+    </form>
+
+    <div id="resultsSection" class="hidden">
+        <h2>Inserisci i risultati ufficiali:</h2>
+        <form id="resultsForm">
+            <label for="resultDarioAngeli">Dario Angeli:</label>
+            <input type="number" id="resultDarioAngeli" name="resultDarioAngeli" required><br>
+
+            <label for="resultPasson">Passon:</label>
+            <input type="number" id="resultPasson" name="resultPasson" required><br>
+
+            <label for="resultDuri">Durì:</label>
+            <input type="number" id="resultDuri" name="resultDuri" required><br>
+
+            <label for="resultBeltrame">Beltrame:</label>
+            <input type="number" id="resultBeltrame" name="resultBeltrame" required><br>
+
+            <label for="resultAlex">Alex:</label>
+            <input type="number" id="resultAlex" name="resultAlex" required><br>
+
+            <label for="resultAbramo">Abramo:</label>
+            <input type="number" id="resultAbramo" name="resultAbramo" required><br>
+
+            <label for="resultBlasigh">Blasigh:</label>
+            <input type="number" id="resultBlasigh" name="resultBlasigh" required><br>
+
+            <label for="resultPeressutti">Peressutti:</label>
+            <input type="number" id="resultPeressutti" name="resultPeressutti" required><br>
+
+            <label for="resultNoacco">Noacco:</label>
+            <input type="number" id="resultNoacco" name="resultNoacco" required><br>
+
+            <label for="resultSanna">Sanna:</label>
+            <input type="number" id="resultSanna" name="resultSanna" required><br>
+
+            <label for="resultIncandela">Incandela:</label>
+            <input type="number" id="resultIncandela" name="resultIncandela" required><br>
+
+            <label for="resultScarpa">Scarpa:</label>
+            <input type="number" id="resultScarpa" name="resultScarpa" required><br>
+
+            <label for="resultOrsettig">Orsettig:</label>
+            <input type="number" id="resultOrsettig" name="resultOrsettig" required><br>
+
+            <label for="resultNadalutti">Nadalutti:</label>
+            <input type="number" id="resultNadalutti" name="resultNadalutti" required><br>
+
+            <label for="resultMilanese">Milanese:</label>
+            <input type="number" id="resultMilanese" name="resultMilanese" required><br>
+
+            <label for="resultVicario">Vicario:</label>
+            <input type="number" id="resultVicario" name="resultVicario" required><br>
+
+            <input type="submit" value="Invia Risultati">
+        </form>
+    </div>
+
+    <h2 id="winnerSection" class="hidden">Calcolando il vincitore...</h2>
+
+    <script>
+        const predictions = [];
+        const results = {};
+
+        document.getElementById('predictionsForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let formData = new FormData(this);
+            let prediction = {};
+            formData.forEach((value, key) => {
+                prediction[key] = parseInt(value);
+            });
+            predictions.push(prediction);
+            alert("Previsioni inviate con successo!");
+            this.reset();
+        });
+
+        const checkTime = () => {
+            const now = new Date();
+            const targetDate = new Date();
+            targetDate.setHours(14, 0, 0, 0); // Imposta l'orario alle 14:00
+
+            if (now >= targetDate) {
+                document.getElementById('resultsSection').classList.remove('hidden');
+            } else {
+                setTimeout(checkTime, 60000); // Controlla ogni minuto
+            }
+        };
+
+        checkTime();
+
+        document.getElementById('resultsForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let formData = new FormData(this);
+            formData.forEach((value, key) => {
+                results[key] = parseInt(value);
+            });
+
+            calculateWinner();
+        });
+
+        const calculateWinner = () => {
+            let closestMatch = null;
+            let smallestDifference = Infinity;
+
+            predictions.forEach((prediction, index) => {
+                let totalDifference = 0;
+
+                for (let key in results) {
+                    let candidate = key.replace('result', '').toLowerCase();
+                    totalDifference += Math.abs(prediction[candidate] - results[key]);
+                }
+
+                if (totalDifference < smallestDifference) {
+                    smallestDifference = totalDifference;
+                    closestMatch = index;
+                }
+            });
+
+            if (closestMatch !== null) {
+                document.getElementById('winnerSection').innerText = `Il vincitore è la previsione n° ${closestMatch + 1} con una differenza totale di ${smallestDifference} punti.`;
+                document.getElementById('winnerSection').classList.remove('hidden');
+            }
+        };
+    </script>
+</body>
+</html>
